@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>Lets do this</title>
+    <style>
+        button{
+            margin:2em
+        }
+    </style>
+</head>
+
+<body>
+    
+    
+    <button class='R1'>Rock</button>
+    <button class='R2'>Paper</button>
+    <button class='R3'>Scissors</button>
+
+    <div class='board'></div>
+    <div class='scoreboard'></div>
+    <div class='matchend'></div>
+
+
+
+    
+<script>
+/*let experi = document.querySelector('button')
+experi.addEventListener('click',function(e){
+    console.log(e.target.getAttribute('class'))
+}) */
+let scoreboard = document.querySelector('.scoreboard')
+let board = document.querySelector('.board')
+
+let buttons = document.querySelectorAll('button')
+buttons.forEach((button)=>{
+    button.addEventListener('click', Gameon);
+    button.addEventListener('click', scoretrack);
+    button.addEventListener('click', matchresult);
+}); 
+
+
+  function computerPlay(){
+    function rangen(){
+    return Math.floor(Math.random()*3)}
+
+    if (rangen()==0){return 'rock'}
+    if (rangen()==1){return 'scissors'}
+    else return 'paper'}
+
+function Gameon(e){
+let P = e.target.textContent.toLowerCase()
+let C = computerPlay()
+
+if (P == 'rock' & C =='scissors') {board.textContent = (`You won! ${P} beats ${C}`)}
+if (P == 'paper' & C =='rock') {board.textContent = (`You won! ${P} beats ${C}`)} 
+if (P == 'scissors' & C == 'paper') {board.textContent = (`You won! ${P} beats ${C}`)}
+if (P == 'rock' & C == 'paper') {board.textContent = (`You lost! ${C} beats ${P}`)}
+if (P == 'paper' & C =='scissors') {board.textContent = (`You lost! ${C} beats ${P}`)} 
+if (P == 'scissors' & C == 'rock') {board.textContent = (`You lost! ${C} beats ${P}`)}
+if (P == C){board.textContent = ('You Draw!')}
+}
+
+//Display the running score
+let PS = 0 
+let CS = 0
+function scoretrack(e){
+    if(board.textContent.search('won')==4){PS++}
+    else if(board.textContent.search('lost')==4){CS++}
+    console.log(PS)
+    scoreboard.textContent=(`${PS} to ${CS}`)
+}
+
+//announce a winner of the game once one player reaches 5 points.
+function matchresult(e){
+    let matchend = document.querySelector('.matchend')
+    if(PS==5){matchend.textContent='Match end! Player has won'; buttons.forEach((button)=>{
+    button.removeEventListener('click', Gameon); 
+    button.removeEventListener('click', scoretrack);
+    })}
+    else if(CS==5){matchend.textContent='Match end! Computer has won'; buttons.forEach((button)=>{
+    button.removeEventListener('click', Gameon); 
+    button.removeEventListener('click', scoretrack);
+    })}
+}
+
+
+
+
+/*function game(){  
+  let PS = 0 
+  let CS = 0
+  for(i=0; i<5; i++){
+    let playerSelection = prompt("Choose your weapon.")  
+      //console.log(Gameon(playerSelection,computerPlay()))//
+      if(Gameon(playerSelection,computerPlay()).search('won')==4){PS++; console.log("Player won")}
+      else if(Gameon(playerSelection,computerPlay()).search('lost')==4){CS++; console.log("Computer won")}
+      else {console.log('Tie')}
+      console.log(`Current score is ${PS} to ${CS}`)  
+       }
+}*/
+</script>
+</body>
+</html>
